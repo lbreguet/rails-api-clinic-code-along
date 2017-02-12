@@ -17,3 +17,21 @@
 #                password: 'abc123',
 #                password_confirmation: nil)
 # end
+
+%w(alice bob charlie dana eliot franky gloria henry iulia).each do |name|
+  doctor_params = {
+    given_name: name,
+    family_name: 'McDreamy'
+  }
+  next if Doctor.exists? doctor_params
+  Doctor.create! doctor_params
+end
+
+%w(alice bob charlie dana eliot franky gloria henry iulia).each do |name|
+  full_name = "#{name} McFace"
+  next if Patient.exists? name: full_name
+  Patient.create!(name: full_name,
+                  diagnosis: 'Addicted to Love',
+                  born_on: '1986-01-01',
+                  doctor: Doctor.all.sample)
+end
